@@ -57,14 +57,14 @@
     <string name="block_button_text_enabling">Habilitando…</string>
     <string name="block_button_text_disabling">Inhabilitando…</string>
     <string name="edit_block_list">Edita bloqueo de URL\'s</string>
-    <string name="whitelist">Permitidas</string>
-    <string name="blocklist">Bloqueadas</string>
+    <string name="whitelist">Mostrar lista blanca</string>
+    <string name="blocklist">Mostrar lista negra</string>
     <string name="back_to_main">Volver al inicio</string>
     <string name="editAlert">¡Después de editar la lista negra y la lista blanca volver al menu
         principal de Adhell,
         inhabilite y habilite Adhell, para aplicar los cambios!
     </string>
-    <string name="allow_apps">Lista Apps</string>
+    <string name="allow_apps">Administrar el uso en Apps</string>
     <string name="delete_app">Apagar y Borra Adhell</string>
     <string name="delete_app_dialog_title">Borrar app</string>
     <string name="delete_app_dialog_text">¿De verdad quieres apagar y eliminar Adhell?</string>
@@ -74,7 +74,7 @@
     <string name="applying_filter">Espere, aplicando el filtro</string>
     <string name="block_app_tab_label">Apps Activas</string>
     <string name="allowed_app_tab_label">Apps Excluidas</string>
-    <string name="block_url_tab_label">Blocked URLs</string>
+    <string name="block_url_tab_label">URLs bloqueadas</string>
     <string name="allowed_url_tab_label">URLs Permitidas</string>
     <string name="test_report">Informe de prueba</string>
     <string name="adhell_settings">Ajustes</string>
@@ -83,12 +83,13 @@
     <string name="dns_2_address">Dirección DNS 2</string>
     <string name="set_dns_button_text">Establecer DNS</string>
     <string name="cancel_text">Cancelar</string>
-    <string name="note_that_adhell_must_be_enabled">Use it only if you know what DNS for and what
-        benefits or problems editing could cause. Note that Adhell must be enabled.
+    <string name="note_that_adhell_must_be_enabled">Usar sólo si se conocen los beneficios o problemas
+        que podría causar la edición de los DNS. Tenga en cuenta que Adhell debe estar habilitado.
     </string>
     <string name="restore_defaults">Restaurar valores predeterminados</string>
     <string name="block">Bloquear</string>
-    <string name="manage_standard_url_package">Manage Standard Url Package</string>
+    <string name="manage_standard_url_package">Administrar paquete de Url estándar</string>
+    <string name="whitelist_ad_url">Añadir URLs a la lista blanca</string>
     <string name="block_custom_urls">Bloquear URLs personalizada</string>
     <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">
         To take effect Turn off -> Turn on Adhell after editing list.
@@ -114,7 +115,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hola parte blanca</string>
-    <string name="whitelist_ad_url">URL de publicidad lista blanca</string>
     <string name="valid_subs">Your subscription is valid</string>
     <string name="your_device_running_old_knox_version">" Your device running old version of Knox.
         So this function may work unstable. Sorry "

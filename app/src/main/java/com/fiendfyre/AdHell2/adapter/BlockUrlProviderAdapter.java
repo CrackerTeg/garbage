@@ -55,7 +55,7 @@ public class BlockUrlProviderAdapter extends ArrayAdapter<BlockUrlProvider> {
             lastUpdatedTextView.setText(dateFormat.format(blockUrlProvider.lastUpdated));
             if (!blockUrlProvider.deletable) {
                 deleteUrlImageView.setVisibility(View.GONE);
-                urlProviderCheckBox.setClickable(false);
+                //urlProviderCheckBox.setClickable(false);
             }
 
         }

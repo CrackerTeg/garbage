@@ -20,6 +20,7 @@ import com.sec.enterprise.firewall.FirewallResponse;
 import com.sec.enterprise.firewall.FirewallRule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -186,7 +187,9 @@ public class ContentBlocker56 implements ContentBlocker {
         }
 
         try {
-            /* Try to block Port 53 */
+            /* Try to block Port 53
+               This is now necessary for Chrome
+             */
 
             Log.d(TAG, "Adding: DENY PORT 53");
 
@@ -204,7 +207,17 @@ public class ContentBlocker56 implements ContentBlocker {
             portRules[1].setIpAddress("*");
             portRules[1].setPortNumber("53");
 
+            // Send rules to the firewall
             FirewallResponse[] response = mFirewall.addRules(portRules);
+
+            // Define bitmask
+            int bitmask = (Firewall.FIREWALL_ALLOW_RULE | Firewall.FIREWALL_DENY_RULE);
+
+            // Query firewall for IP rules
+            FirewallRule[] allowAndDenyRules = mFirewall.getRules(bitmask, null);
+
+            // Output to log
+            Log.d(TAG,"Firewall IP Rules:" + Arrays.toString(allowAndDenyRules));
         }
         catch (SecurityException ex)
         {

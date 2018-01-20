@@ -115,7 +115,7 @@ public class ContentBlocker56 implements ContentBlocker {
             // If a wildcard entry is passed, bypass current URL filter
             if(blockUrl.url.contains("*"))
             {
-                Log.d(TAG, "Wildcard detected -->" + blockUrl.url + " requires validation.");
+                Log.d(TAG, "Wildcard detected --> " + blockUrl.url + " requires validation.");
 
                 // Check the wildcard is valid
                 boolean validWildcard = BlockUrlPatternsMatch.wildcardValid(blockUrl.url);

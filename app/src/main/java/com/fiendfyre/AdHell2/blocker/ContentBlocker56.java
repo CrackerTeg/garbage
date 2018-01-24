@@ -138,13 +138,15 @@ public class ContentBlocker56 implements ContentBlocker {
             }
             else
             {
+                // Let's remove the unnecessary www, www1 etc.
+                blockUrl.url = blockUrl.url.replaceAll("^(www)([0-9]{0,3})?(\\.)", "");
+
                 // Check that the domain is valid
                 boolean validDomain = BlockUrlPatternsMatch.domainValid(blockUrl.url);
 
                 // If it isn't valid, skip it
                 if(!validDomain)
                 {
-
                     Log.d(TAG, "Invalid Domain: " + blockUrl.url);
                     continue;
                 }

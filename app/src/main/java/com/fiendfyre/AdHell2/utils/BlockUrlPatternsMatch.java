@@ -28,4 +28,21 @@ public class BlockUrlPatternsMatch {
         return matchResult;
     }
 
+    public static boolean domainValid (String domain){
+
+        // Domain pattern to match
+        String domainPattern = "(?i)(?=^.{4,253}$)(^((?!-)[a-z0-9-]{1,63}(?<!-)\\.)+[a-z]{2,63}$)";
+
+        // Create a pattern object
+        Pattern r = Pattern.compile(domainPattern);
+
+        // Create a matcher object
+        Matcher m = r.matcher(domain);
+
+        // True or false
+        boolean matchResult = m.matches();
+
+        return matchResult;
+    }
+
 }

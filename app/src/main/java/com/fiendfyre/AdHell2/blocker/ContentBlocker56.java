@@ -99,7 +99,12 @@ public class ContentBlocker56 implements ContentBlocker {
         }
 
         List<String> denyList = new ArrayList<>();
+
         for (BlockUrl blockUrl : finalBlockList) {
+
+
+
+
             /*
             if (Patterns.WEB_URL.matcher(blockUrl.url).matches()) {
                 if (whiteUrlsString.contains(blockUrl.url)) {
@@ -134,6 +139,24 @@ public class ContentBlocker56 implements ContentBlocker {
 
                 denyList.add(urlReady);
             }
+            else
+            {
+                // Check that the domain is valid
+                boolean validDomain = BlockUrlPatternsMatch.domainValid(blockUrl.url);
+
+                // If it isn't valid, skip it
+                if(!validDomain)
+                {
+
+                    Log.d(TAG, "Invalid Domain: " + blockUrl.url);
+                    continue;
+                }
+
+                final String urlReady = "*" + blockUrl.url;
+
+                denyList.add(urlReady);
+            }
+            /*
             // If it a wildcard isn't detected, let's use AdHell's original processing.
             else if (Patterns.WEB_URL.matcher(blockUrl.url).matches())
             {
@@ -143,6 +166,7 @@ public class ContentBlocker56 implements ContentBlocker {
 
                 denyList.add(urlReady);
             }
+            */
 
         }
 

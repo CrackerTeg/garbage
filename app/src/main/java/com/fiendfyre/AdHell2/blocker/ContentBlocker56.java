@@ -102,9 +102,6 @@ public class ContentBlocker56 implements ContentBlocker {
 
         for (BlockUrl blockUrl : finalBlockList) {
 
-
-
-
             /*
             if (Patterns.WEB_URL.matcher(blockUrl.url).matches()) {
                 if (whiteUrlsString.contains(blockUrl.url)) {

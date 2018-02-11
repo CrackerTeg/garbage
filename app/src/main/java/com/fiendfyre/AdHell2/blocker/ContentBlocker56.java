@@ -1,5 +1,6 @@
 package com.fiendfyre.AdHell2.blocker;
 
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.Patterns;
@@ -62,22 +63,64 @@ public class ContentBlocker56 implements ContentBlocker {
             disableBlocker();
         }
 
-        /*
-        BlockUrlProvider standardBlockUrlProvider =
-                appDatabase.blockUrlProviderDao().getByUrl(MainActivity.ADHELL_STANDARD_PACKAGE);
-        List<BlockUrl> standardList = appDatabase.blockUrlDao().getUrlsByProviderId(standardBlockUrlProvider.id);
-        */
+        /* Let's block Port 53 for Chrome first */
+
+        // Create an array to store chrome package names
+        List<String> chrome_packages = new ArrayList<String>();
+
+        // Add known packages
+        chrome_packages.add("com.android.chrome");
+        chrome_packages.add("com.chrome.beta");
+        chrome_packages.add("com.chrome.canary");
+
+        // Try to add each chrome package to the firewall
+        for(String chrome : chrome_packages) {
+
+            try {
+                // Number of rules
+                int numRules = 2;
+                // Declare new firewall rule variable
+                FirewallRule[] portRules = new FirewallRule[numRules];
+
+                // IPv4
+                portRules[0] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV4);
+                portRules[0].setIpAddress("*");
+                portRules[0].setPortNumber("53");
+                portRules[0].setApplication(new AppIdentity(chrome, null));
+                // IPv6
+                portRules[1] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV6);
+                portRules[1].setIpAddress("*");
+                portRules[1].setPortNumber("53");
+                portRules[1].setApplication(new AppIdentity(chrome, null));
+
+                // Send rules to the firewall
+                FirewallResponse[] response = mFirewall.addRules(portRules);
+
+                // Output result for debug (rules will not apply if the package is not installed).
+                if (FirewallResponse.Result.SUCCESS == response[0].getResult()) {
+                    Log.i(TAG, "IPv4/6 Rule Added: " + chrome);
+                }
+                else
+                {
+                    Log.d(TAG, "IPv4/6 Rule NOT added: " + chrome);
+                }
+
+            } catch (SecurityException ex) {
+                Log.e(TAG, "Failed to add Chrome firewall rules.", ex);
+                Log.i(TAG, "Disabling blocker.");
+
+                disableBlocker();
+                return false;
+            }
+        }
+
+        /* Move on to domain filtering */
 
         Set<BlockUrl> finalBlockList = new HashSet<>();
         //finalBlockList.addAll(standardList);
         List<BlockUrlProvider> blockUrlProviders = appDatabase.blockUrlProviderDao().getBlockUrlProviderBySelectedFlag(1);
 
         for (BlockUrlProvider blockUrlProvider : blockUrlProviders) {
-            /*
-            if (blockUrlProvider.url.equals(MainActivity.ADHELL_STANDARD_PACKAGE)) {
-                continue;
-            }
-            */
             Log.i(TAG, "Included url provider: " + blockUrlProvider.url);
             List<BlockUrl> blockUrls = appDatabase.blockUrlDao().getUrlsByProviderId(blockUrlProvider.id);
             if (finalBlockList.size() + blockUrls.size() <= this.urlBlockLimit - 100) {
@@ -101,15 +144,6 @@ public class ContentBlocker56 implements ContentBlocker {
         List<String> denyList = new ArrayList<>();
 
         for (BlockUrl blockUrl : finalBlockList) {
-
-            /*
-            if (Patterns.WEB_URL.matcher(blockUrl.url).matches()) {
-                if (whiteUrlsString.contains(blockUrl.url)) {
-                    continue;
-                }
-                denyList.add("*" + blockUrl.url + "*");
-            }
-            */
 
             if (whiteUrlsString.contains(blockUrl.url)) {
                 continue;
@@ -155,18 +189,6 @@ public class ContentBlocker56 implements ContentBlocker {
 
                 denyList.add(urlReady);
             }
-            /*
-            // If it a wildcard isn't detected, let's use AdHell's original processing.
-            else if (Patterns.WEB_URL.matcher(blockUrl.url).matches())
-            {
-                final String urlReady = "*" + blockUrl.url;
-
-                Log.d(TAG, "Adding rule: " + urlReady);
-
-                denyList.add(urlReady);
-            }
-            */
-
         }
 
         List<UserBlockUrl> userBlockUrls = appDatabase.userBlockUrlDao().getAll2();
@@ -174,12 +196,6 @@ public class ContentBlocker56 implements ContentBlocker {
         if (userBlockUrls != null && userBlockUrls.size() > 0) {
             Log.i(TAG, "UserBlockUrls size: " + userBlockUrls.size());
             for (UserBlockUrl userBlockUrl : userBlockUrls) {
-                /*
-                if (Patterns.WEB_URL.matcher(userBlockUrl.url).matches()) {
-                    denyList.add("*" + userBlockUrl.url + "*");
-                    Log.i(TAG, "UserBlockUrl: " + userBlockUrl.url);
-                }
-                */
 
                 if (Patterns.WEB_URL.matcher(userBlockUrl.url).matches()) {
 
@@ -210,46 +226,7 @@ public class ContentBlocker56 implements ContentBlocker {
         }
 
         try {
-            /* Try to block Port 53
-               This is now necessary for Chrome
-             */
-
-            Log.d(TAG, "Adding: DENY PORT 53");
-
-            // Number of rules
-            int numRules = 2;
-            // Declare new firewall rule variable
-            FirewallRule[] portRules = new FirewallRule[numRules];
-
-            // Add deny rules for DNS port (53)
-            portRules[0] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV4);
-            portRules[0].setIpAddress("*");
-            portRules[0].setPortNumber("53");
-
-            portRules[1] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV6);
-            portRules[1].setIpAddress("*");
-            portRules[1].setPortNumber("53");
-
-            // Send rules to the firewall
-            FirewallResponse[] response = mFirewall.addRules(portRules);
-
-            // Define bitmask
-            int bitmask = (Firewall.FIREWALL_ALLOW_RULE | Firewall.FIREWALL_DENY_RULE);
-
-            // Query firewall for IP rules
-            FirewallRule[] allowAndDenyRules = mFirewall.getRules(bitmask, null);
-
-            // Output to log
-            Log.d(TAG,"Firewall IP Rules:" + Arrays.toString(allowAndDenyRules));
-        }
-        catch (SecurityException ex)
-        {
-            Log.e(TAG, "Failed to add PORT rule.", ex);
-            return false;
-        }
-
-        try {
-            Log.d(TAG, "Adding: DENY DOMAINS");
+            Log.d(TAG, "Adding domain filter rules.");
             FirewallResponse[] response = mFirewall.addDomainFilterRules(rules);
 
             if (!mFirewall.isFirewallEnabled()) {

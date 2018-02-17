@@ -191,7 +191,7 @@ public class DeviceAdminInteractor {
         try {
             switch (enterpriseDeviceManager.getEnterpriseSdkVer()) {
                 case ENTERPRISE_SDK_VERSION_NONE:
-                    return null;
+                    return ContentBlocker57.getInstance;
                 case ENTERPRISE_SDK_VERSION_2:
                 case ENTERPRISE_SDK_VERSION_2_1:
                 case ENTERPRISE_SDK_VERSION_2_2:
@@ -236,7 +236,7 @@ public class DeviceAdminInteractor {
         Log.d(TAG, "Entering isKnoxVersionSupported() method");
         if (enterpriseDeviceManager == null) {
             Log.w(TAG, "Knox not supported since enterpriseDeviceManager = null");
-            return false;
+            return true;
         }
         switch (enterpriseDeviceManager.getEnterpriseSdkVer()) {
             case ENTERPRISE_SDK_VERSION_NONE:

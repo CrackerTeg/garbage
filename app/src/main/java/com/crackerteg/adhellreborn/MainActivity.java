@@ -1,6 +1,6 @@
 package com.crackerteg.adhellreborn;
 
-import android.arch.lifecycle.ViewModelProviders;
+//import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -15,8 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
+//import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.answers.Answers;
 import com.crackerteg.adhellreborn.blocker.ContentBlocker;
 import com.crackerteg.adhellreborn.blocker.ContentBlocker56;
 import com.crackerteg.adhellreborn.blocker.ContentBlocker57;
@@ -27,7 +27,7 @@ import com.crackerteg.adhellreborn.fragments.AdhellNotSupportedFragment;
 import com.crackerteg.adhellreborn.fragments.AdhellPermissionInfoFragment;
 import com.crackerteg.adhellreborn.fragments.AppSupportFragment;
 import com.crackerteg.adhellreborn.fragments.BlockerFragment;
-import com.crackerteg.adhellreborn.fragments.OnlyPremiumFragment;
+//import com.crackerteg.adhellreborn.fragments.OnlyPremiumFragment;
 import com.crackerteg.adhellreborn.fragments.PackageDisablerFragment;
 import com.crackerteg.adhellreborn.service.BlockedDomainService;
 import com.crackerteg.adhellreborn.utils.AdhellAppIntegrity;
@@ -35,7 +35,7 @@ import com.crackerteg.adhellreborn.utils.DeviceAdminInteractor;
 import com.crackerteg.adhellreborn.viewmodel.SharedBillingViewModel;
 import com.roughike.bottombar.BottomBar;
 
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Fabric.with(this, new Answers(), new Crashlytics());
+//        Fabric.with(this, new Answers(), new Crashlytics());
 
         fragmentManager = getSupportFragmentManager();
         mAdminInteractor = DeviceAdminInteractor.getInstance();
@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
             adhellAppIntegrity.fillPackageDb();
         });
         // com.samsung.android.app.spage
-        sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
-        sharedBillingViewModel.startBillingConnection();
+//        sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
+//        sharedBillingViewModel.startBillingConnection();
     }
 
     @Override
@@ -190,11 +190,12 @@ public class MainActivity extends AppCompatActivity {
 //                replacing = new ProfilesFragment();
 //                break;
             case R.id.appPermissionsTab:
-                if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
+/*                if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
                     replacing = new AdhellPermissionInfoFragment();
                 } else {
                     replacing = new OnlyPremiumFragment();
-                }
+                }*/
+                replacing = new AdhellPermissionInfoFragment();
                 break;
             default:
                 replacing = new AppSupportFragment();

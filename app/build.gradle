@@ -35,9 +35,9 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         buildTypes.each {
-            it.buildConfigField 'String', 'ADHELL_TOKEN', AdhellToken
-            it.buildConfigField 'String', 'ADHELL_KEY_URL', AdhellKeyUrl
-            it.buildConfigField 'String', 'ADHELL_HEARTBEAT_URL', AdhellHeartbeatUrl
+//            it.buildConfigField 'String', 'ADHELL_TOKEN', AdhellToken
+            it.buildConfigField 'String', 'ADHELL_KEY_URL', '"https://gist.github.com/CrackerTeg/efacedde5e275cc758805bebba800c8e"'
+//            it.buildConfigField 'String', 'ADHELL_HEARTBEAT_URL', AdhellHeartbeatUrl
         }
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8

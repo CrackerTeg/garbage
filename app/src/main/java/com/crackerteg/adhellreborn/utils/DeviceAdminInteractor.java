@@ -127,7 +127,7 @@ public class DeviceAdminInteractor {
     /**
      * Check if KNOX enabled
      */
-    public boolean isKnoxEnbaled() {
+    public boolean isKnoxEnabled() {
         return (mContext.checkCallingOrSelfPermission("android.permission.sec.MDM_FIREWALL")
                 == PackageManager.PERMISSION_GRANTED)
                 && (mContext.checkCallingOrSelfPermission("android.permission.sec.MDM_APP_MGMT")

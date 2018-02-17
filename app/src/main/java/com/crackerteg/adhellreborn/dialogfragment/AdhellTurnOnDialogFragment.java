@@ -114,7 +114,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
-                if (deviceAdminInteractor.isKnoxEnbaled()) {
+                if (deviceAdminInteractor.isKnoxEnabled()) {
                     Toast.makeText(context, "License activated", Toast.LENGTH_LONG).show();
                     dismiss();
                     allowActivateKnox(false);
@@ -143,7 +143,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             allowTurnOnAdmin(true);
             turnOnAdminButton.setText("Enable Admin");
         }
-        if (deviceAdminInteractor.isKnoxEnbaled()) {
+        if (deviceAdminInteractor.isKnoxEnabled()) {
             activateKnoxButton.setText("License activated");
             allowActivateKnox(false);
         } else {
@@ -155,7 +155,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
                 allowActivateKnox(true);
             }
         }
-        if (deviceAdminInteractor.isActiveAdmin() && deviceAdminInteractor.isKnoxEnbaled()) {
+        if (deviceAdminInteractor.isActiveAdmin() && deviceAdminInteractor.isKnoxEnabled()) {
             dismiss();
         }
     }

@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            if (!mAdminInteractor.isKnoxEnbaled()) {
+            if (!mAdminInteractor.isKnoxEnabled()) {
                 Log.d(TAG, "Knox disabled");
                 return;
             }
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (!mAdminInteractor.isKnoxEnbaled()) {
+        if (!mAdminInteractor.isKnoxEnabled()) {
             Log.d(TAG, "Knox disabled");
             return;
         }
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (!mAdminInteractor.isKnoxEnbaled()) {
+        if (!mAdminInteractor.isKnoxEnabled()) {
             Log.d(TAG, "Knox disabled");
             Log.d(TAG, "Checking if internet connection exists");
             ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -66,7 +66,7 @@ public class HeartbeatIntentService extends IntentService {
         return uniqueID;
     }
 
-    private void makeUpdateRequest() {
+    /*private void makeUpdateRequest() {
         File applicationFolder = mContext.getExternalFilesDir(null);
         if (applicationFolder == null || !applicationFolder.canWrite()) {
             return;
@@ -114,7 +114,7 @@ public class HeartbeatIntentService extends IntentService {
         long downloadReference = downloadManager.enqueue(request);
         Log.i(TAG, "ReferenceId: " + downloadReference);
         return downloadReference;
-    }
+    }*/
 
 
     @Override
@@ -144,7 +144,7 @@ public class HeartbeatIntentService extends IntentService {
             String json = mObjectMapper.writeValueAsString(androidDeviceForm);
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder()
-                    .url(BuildConfig.ADHELL_HEARTBEAT_URL)
+//                    .url(BuildConfig.ADHELL_HEARTBEAT_URL)
                     .post(body)
                     .build();
             Response response = mOkHttpClient.newCall(request).execute();

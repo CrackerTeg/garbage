@@ -136,7 +136,7 @@ public class DeviceAdminInteractor {
 
     public String getKnoxKey() {
         RequestBody formBody = new FormBody.Builder()
-                .add("adhellToken", BuildConfig.ADHELL_TOKEN)
+//                .add("adhellToken", BuildConfig.ADHELL_TOKEN)
                 .build();
         Request request = new Request.Builder()
                 .url(BuildConfig.ADHELL_KEY_URL)
@@ -191,7 +191,7 @@ public class DeviceAdminInteractor {
         try {
             switch (enterpriseDeviceManager.getEnterpriseSdkVer()) {
                 case ENTERPRISE_SDK_VERSION_NONE:
-                    return ContentBlocker57.getInstance;
+                    return ContentBlocker57.getInstance();
                 case ENTERPRISE_SDK_VERSION_2:
                 case ENTERPRISE_SDK_VERSION_2_1:
                 case ENTERPRISE_SDK_VERSION_2_2:
